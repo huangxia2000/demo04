@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:mvc="http://www.springframework.org/schema/mvc"
+	   xmlns:tx="http://www.springframework.org/schema/tx" xmlns:p="http://www.springframework.org/schema/p"
+	   xmlns:util="http://www.springframework.org/schema/util"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+    http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+    http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
+<!--
+	<bean id="computer1" class="com.hxs.web.ioc.Computer" >
+	<property name="cpu" value="core i10">
+	</property>
+		<property name="ulist"  ref="wlist">
+		</property>
+
+		<property name="map" ref="wmap">
+		</property>
+	<constructor-arg index="0" value="core I99"></constructor-arg>
+	<constructor-arg index="1" value="core I99"></constructor-arg>
+	</bean>
+<util:map id="wmap">
+	<entry key="a" value="100"></entry>
+	<entry key="b" value="200"></entry>
+</util:map>
+	<util:list id="wlist">
+		<value>aaaa</value>
+		<value>bbbb</value>
+	</util:list>
+
+	<bean id="person" class="com.hxs.web.ioc.Person">
+		<property name="uname" value="佳5"></property>
+		<property name="computer" ref="computer1"></property>
+	</bean>
+-->
+
+
+
+
+
+<context:component-scan base-package="com.hxs.web"></context:component-scan>
+<!--scope="single"单例-->
+	<bean id="Tom" class="com.hxs.web.aop.Tom"></bean>
+	<bean id="sleephelper" class="com.hxs.web.aop.SleepHelper"></bean>
+	<!--切点--><!--定义切点，匹配所有的sleep方法-->
+	<bean id="sleepmethod" class="org.springframework.aop.support.JdkRegexpMethodPointcut">
+	<property name="pattern" value=".*sleep"></property></bean>
+	<!--切面--><!--切面  通知+切点-->
+	<bean id="sleepmian" class="org.springframework.aop.support.DefaultPointcutAdvisor">
+	<property name="advice" ref="sleephelper"/>
+	<property name="pointcut" ref="sleepmethod"/></bean>
+	<!--代理-->
+
+	<bean id="TomDai" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="target" ref="Tom"/>
+		<property name="interceptorNames" value="sleepmian"/></bean>
+</beans>

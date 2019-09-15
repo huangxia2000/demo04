@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE configuration PUBLIC "-//ibatis.apache.org//DTD Config 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<environments default="defaultEnvironment">
+<!--		配置连接数据库的环境-->
+		<environment id="defaultEnvironment">
+			<transactionManager type="JDBC"></transactionManager>
+			<dataSource type="POOLED">
+				<property name="driver" value="com.mysql.jdbc.Driver" />
+				<property name="url" value="jdbc:mysql://localhost:3306/huangxia2000?serverTimezone=UTC&amp;characterEncoding=utf-8&amp;useSSL=false" />
+				<!--				?serverTimezone=UTC&amp;characterEncoding=utf-8&amp;useSSL=false-->
+				<property name="username" value="hxs1" />
+				<property name="password" value="123456!@#" />
+			</dataSource>
+		</environment>
+	</environments>
+
+	<mappers>
+		<mapper resource="mapper/TblUser.xml"/>
+		<mapper resource="mapper/Emp.xml"/>
+		<mapper resource="mapper/Dept.xml"/>
+	</mappers>
+
+
+</configuration>
+
+
+
+<!--		&lt;!&ndash; 配置连接 &ndash;&gt;-->
+<!--<environments default="environment">-->
+<!--<environment id="environment">-->
+<!--	<transactionManager type="JDBC" />-->
+<!--	<dataSource type="POOLED">-->
+<!--		<property name="driver" value="com.mysql.cj.jdbc.Driver" />-->
+<!--		<property name="url" value="jdbc:mysql://localhost:3306/docsys?serverTimezone=UTC&amp;characterEncoding=utf-8&amp;useSSL=false" />-->
+<!--		&lt;!&ndash;				?serverTimezone=UTC&amp;characterEncoding=utf-8&amp;useSSL=false&ndash;&gt;-->
+<!--		<property name="username" value="root" />-->
+<!--		<property name="password" value="123456" />-->
+
+<!--	</dataSource>-->
+<!--</environment>-->
+<!--</environments>-->
+<!--		&lt;!&ndash; 添加表映射文件 &ndash;&gt;-->
+<!--		&lt;!&ndash;	<mappers>&ndash;&gt;-->
+<!--		&lt;!&ndash;		<mapper resource="mapper/TblUser.xml" />&ndash;&gt;-->
+<!--		&lt;!&ndash;	</mappers>&ndash;&gt;-->

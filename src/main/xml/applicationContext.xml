@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:mvc="http://www.springframework.org/schema/mvc"
+	   xmlns:tx="http://www.springframework.org/schema/tx" xmlns:p="http://www.springframework.org/schema/p"
+	   xmlns:util="http://www.springframework.org/schema/util"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+    http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+    http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
+<!--
+	<bean id="computer1" class="com.hxs.web.ioc.Computer" >
+	<property name="cpu" value="core i10">
+	</property>
+		<property name="ulist"  ref="wlist">
+		</property>
+
+		<property name="map" ref="wmap">
+		</property>
+	<constructor-arg index="0" value="core I99"></constructor-arg>
+	<constructor-arg index="1" value="core I99"></constructor-arg>
+	</bean>
+<util:map id="wmap">
+	<entry key="a" value="100"></entry>
+	<entry key="b" value="200"></entry>
+</util:map>
+	<util:list id="wlist">
+		<value>aaaa</value>
+		<value>bbbb</value>
+	</util:list>
+
+	<bean id="person" class="com.hxs.web.ioc.Person">
+		<property name="uname" value="佳5"></property>
+		<property name="computer" ref="computer1"></property>
+	</bean>
+-->
+
+
+
+
+
+<context:component-scan base-package="com.hxs.web"></context:component-scan>
+<!--scope="single"单例-->
+	<!--扫描-->
+	<aop:aspectj-autoproxy proxy-target-class="true"></aop:aspectj-autoproxy>
+<!--配置数据库连接池-->
+	<bean id="myDataSource" class="org.apache.commons.dbcp2.BasicDataSource"
+		  destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+		<property name="url" value="jdbc:mysql://localhost:3306/huangxia2000?serverTimezone=UTC&amp;characterEncoding=utf-8&amp;useSSL=false"/>
+		<property name="username" value="hxs1"/>
+		<property name="password" value="123456!@#"/>
+	</bean>
+<!--配置session-->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="myDataSource"/>
+		<property name="mapperLocations" value="classpath:mapper/TblUser.xml"/>
+	</bean>
+<!--mapper-->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+		<property name="basePackage" value="com.hxs.web.mapper"/>
+	</bean>
+
+
+
+</beans>

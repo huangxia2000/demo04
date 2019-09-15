@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hxs.web.mapper.DeptMapper">
+
+	<select id="findDeptById" parameterType="java.lang.Integer" resultMap="deptMap">
+		select * from dept where dno=#{dno}
+	</select>
+<select id="findemp" parameterType="java.lang.Integer" resultType="com.hxs.web.entity.Emp">
+	select * from emp where dno=#{dno}
+
+</select>
+	<resultMap id="deptMap" type="com.hxs.web.entity.Dept">
+	<!--主键-->
+		<id column="dno" property="dno"/>
+		<result property="dname" column="dname"/>
+		<collection property="emps" column="dno" javaType="java.util.List"
+					ofType="com.hxs.web.entity.Emp" select="findemp"></collection>
+	</resultMap>
+</mapper>
+	
